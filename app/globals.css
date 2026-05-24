@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================================
+   NORA COMPLY — Glacial Blue Design System
+   Landing: deep navy → icy blue → white snow palette
+   Dashboard: dark navy base, blue accents replace bronze
+   ===================================================================== */
+
+:root {
+  /* ---- Glacial Landing Palette ---- */
+  --glacier-deep:   #0a1628;   /* darkest sky / text */
+  --glacier-navy:   #0f2240;   /* deep bg sections */
+  --glacier-mid:    #1a3a6b;   /* mid range */
+  --glacier-blue:   #2563b0;   /* primary blue */
+  --glacier-light:  #4a90d9;   /* links, accents */
+  --glacier-ice:    #8bb8e8;   /* secondary text on dark */
+  --glacier-snow:   #e8f2fc;   /* near-white sections */
+  --glacier-white:  #f4f8fd;   /* page bg */
+  --glacier-mist:   #cde0f4;   /* borders on dark */
+
+  /* ---- Warm accents kept (bronze → golden tone down) ---- */
+  --gold:           #c9914a;
+  --gold-soft:      #e8c990;
+  --gold-deep:      #9e6a28;
+
+  /* Legacy tokens mapped to blue for dashboard compat */
+  --paper:    #f4f8fd;
+  --bone:     #e8f2fc;
+  --line:     #c8ddf2;
+  --line2:    #aacbec;
+  --ink:      #0a1628;
+  --ink2:     #2a4a72;
+  --muted:    #5c85b8;
+
+  --bronze:      var(--glacier-light);
+  --bronze-deep: var(--glacier-blue);
+  --bronze-soft: var(--glacier-ice);
+
+  --sage:    #5c9e8a;
+  --clay:    #7bafd4;
+
+  /* Dashboard dark tokens — navy-based not coal */
+  --coal:   #070e1c;
+  --coal2:  #0d1a30;
+  --coal3:  #122040;
+  --ash:    #1e3358;
+  --ash2:   #2a4470;
+  --cream:  #dceeff;
+  --cream2: #9bbce0;
+  --dim:    #5a7fa8;
+
+  --warn:   #e0a84a;
+  --danger: #d45a5a;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0; min-height: 100vh;
+  background: var(--glacier-white);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body.theme-dark {
+  background: var(--coal);
+  color: var(--cream);
+}
+
+::selection { background: var(--glacier-mist); color: var(--glacier-deep); }
+.theme-dark ::selection { background: var(--glacier-blue); color: #fff; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 6px; }
+.theme-dark ::-webkit-scrollbar-thumb { background: var(--ash2); }
+
+/* ---- Typography ---- */
+.display-serif {
+  font-family: 'Fraunces', Georgia, serif;
+  font-feature-settings: 'ss01','ss02';
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+.tabular { font-variant-numeric: tabular-nums; }
+h1, h2 { letter-spacing: -0.018em; }
+h3 { letter-spacing: -0.01em; }
+p { line-height: 1.7; }
+
+/* ---- Buttons ---- */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--glacier-blue);
+  color: #fff;
+  padding: 14px 22px; border-radius: 999px;
+  font-weight: 500; font-size: 14px;
+  border: 1px solid var(--glacier-blue);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.08), 0 8px 24px -8px rgba(37,99,176,0.5);
+}
+.btn-primary:hover {
+  background: var(--glacier-mid);
+  border-color: var(--glacier-mid);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px -4px rgba(37,99,176,0.6);
+}
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--ink);
+  padding: 14px 22px; border: 1px solid var(--line2);
+  border-radius: 999px; font-weight: 500; font-size: 14px;
+  cursor: pointer; transition: border-color 0.2s, background 0.2s;
+}
+.btn-ghost:hover { border-color: var(--glacier-blue); background: var(--bone); color: var(--glacier-blue); }
+
+.theme-dark .btn-primary {
+  background: var(--glacier-light);
+  border-color: var(--glacier-light);
+  color: var(--coal);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.2), 0 8px 24px -8px rgba(74,144,217,0.4);
+}
+.theme-dark .btn-primary:hover { background: var(--glacier-blue); border-color: var(--glacier-blue); color: #fff; }
+.theme-dark .btn-ghost { color: var(--cream); border-color: var(--ash2); }
+.theme-dark .btn-ghost:hover { background: var(--coal2); border-color: var(--glacier-light); color: var(--glacier-ice); }
+
+/* ---- Pills ---- */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 11px; border-radius: 999px;
+  font-size: 11px; font-weight: 500;
+  background: var(--bone); border: 1px solid var(--line); color: var(--ink2);
+}
+.pill-bronze {
+  background: rgba(37,99,176,0.08);
+  border-color: rgba(37,99,176,0.2);
+  color: var(--glacier-blue);
+}
+.pill-sage {
+  background: rgba(92,158,138,0.10);
+  border-color: rgba(92,158,138,0.25);
+  color: var(--sage);
+}
+.theme-dark .pill { background: var(--coal3); border-color: var(--ash); color: var(--cream2); }
+.theme-dark .pill-bronze {
+  background: rgba(74,144,217,0.12);
+  border-color: rgba(74,144,217,0.3);
+  color: var(--glacier-ice);
+}
+.theme-dark .pill-sage {
+  background: rgba(92,158,138,0.12);
+  border-color: rgba(92,158,138,0.28);
+  color: #7fc4b0;
+}
+
+/* ---- Card ---- */
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 1px 0 rgba(10,22,40,0.04), 0 12px 30px -18px rgba(10,22,40,0.10);
+}
+.theme-dark .card {
+  background: var(--coal2);
+  border-color: var(--ash);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.3), 0 24px 48px -28px rgba(0,0,0,0.6);
+}
+
+/* ---- Misc ---- */
+.fade-in { animation: fadeIn 0.6s ease-out; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.dotted-rule { border-top: 1px dashed var(--line2); }
+.theme-dark .dotted-rule { border-top-color: var(--ash2); }
+
+input, textarea, select { font-family: inherit; }
+
+/* ---- Marquee ---- */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee { animation: marquee 38s linear infinite; width: max-content; }
+
+/* =====================================================================
+   GLACIAL LANDING ANIMATIONS
+   ===================================================================== */
+
+/* Animated snow particles */
+@keyframes snowfall {
+  0%   { transform: translateY(-10px) translateX(0px); opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.3; }
+  100% { transform: translateY(100vh) translateX(40px); opacity: 0; }
+}
+
+/* Mist drift — horizontal gentle float */
+@keyframes mistDrift {
+  0%   { transform: translateX(-5%) scaleX(1.05); opacity: 0.18; }
+  50%  { transform: translateX(2%) scaleX(1.0);  opacity: 0.28; }
+  100% { transform: translateX(-5%) scaleX(1.05); opacity: 0.18; }
+}
+
+/* Shimmer on ice peaks */
+@keyframes iceShimmer {
+  0%   { opacity: 0.06; }
+  50%  { opacity: 0.14; }
+  100% { opacity: 0.06; }
+}
+
+/* Aurora — subtle colour wash */
+@keyframes aurora {
+  0%   { opacity: 0.12; transform: translateY(0) skewX(0deg); }
+  33%  { opacity: 0.22; transform: translateY(-8px) skewX(1deg); }
+  66%  { opacity: 0.16; transform: translateY(4px) skewX(-0.5deg); }
+  100% { opacity: 0.12; transform: translateY(0) skewX(0deg); }
+}
+
+/* Ridge slide-in on page load */
+@keyframes ridgeIn {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.ridge-in { animation: ridgeIn 1.6s cubic-bezier(0.2,0.8,0.2,1) both; }
+.ridge-in-2 { animation: ridgeIn 1.8s 0.15s cubic-bezier(0.2,0.8,0.2,1) both; }
+.ridge-in-3 { animation: ridgeIn 2.0s 0.30s cubic-bezier(0.2,0.8,0.2,1) both; }
+
+/* Hero text stagger */
+@keyframes heroTextIn {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-t1 { animation: heroTextIn 0.9s 0.1s cubic-bezier(0.2,0.8,0.2,1) both; }
+.hero-t2 { animation: heroTextIn 0.9s 0.25s cubic-bezier(0.2,0.8,0.2,1) both; }
+.hero-t3 { animation: heroTextIn 0.9s 0.4s cubic-bezier(0.2,0.8,0.2,1) both; }
+.hero-t4 { animation: heroTextIn 0.9s 0.55s cubic-bezier(0.2,0.8,0.2,1) both; }
+
+/* Mist layer */
+.mist-layer {
+  animation: mistDrift 12s ease-in-out infinite;
+}
+.mist-layer-2 {
+  animation: mistDrift 18s 3s ease-in-out infinite reverse;
+}
+
+/* Ice shimmer */
+.ice-shimmer {
+  animation: iceShimmer 6s ease-in-out infinite;
+}
+.ice-shimmer-2 {
+  animation: iceShimmer 9s 2s ease-in-out infinite;
+}
+
+/* Aurora layer */
+.aurora-layer {
+  animation: aurora 14s ease-in-out infinite;
+}
+
+/* Snow particle */
+.snow-p { animation: snowfall linear infinite; }
+
+/* Warm grid (kept for landing sections) */
+.warm-grid {
+  background-image:
+    linear-gradient(to right, rgba(37,99,176,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(37,99,176,0.03) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
