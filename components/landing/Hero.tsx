@@ -305,30 +305,86 @@ export function Hero() {
           max-width: 560px;
         }
 
-        .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 44px; }
+        .cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 44px; }
+
         .cta-primary {
           display: inline-flex;
           align-items: center;
-          gap: 10px;
-          background: #fff;
-          color: #0f2240;
-          padding: 14px 26px;
+          gap: 9px;
+          background: rgba(255, 255, 255, 0.97);
+          color: #0a1e3d;
+          padding: 15px 28px;
           border-radius: 999px;
           font-size: 15px;
-          font-weight: 500;
+          font-weight: 600;
+          letter-spacing: -0.01em;
           text-decoration: none;
-          border: 1px solid rgba(255, 255, 255, 0.95);
-          box-shadow: 0 4px 28px rgba(255, 255, 255, 0.18);
-          transition: transform 0.15s ease, box-shadow 0.25s ease;
+          border: 1px solid rgba(255, 255, 255, 1);
+          box-shadow:
+            0 1px 0 rgba(255,255,255,0.9) inset,
+            0 0 0 1px rgba(200,225,255,0.25),
+            0 6px 20px rgba(0,0,0,0.25),
+            0 2px 8px rgba(255,255,255,0.15);
+          transition: transform 0.18s cubic-bezier(0.2,0.8,0.2,1),
+                      box-shadow 0.22s cubic-bezier(0.2,0.8,0.2,1),
+                      background 0.15s ease;
+          will-change: transform;
         }
-        .cta-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 32px rgba(255, 255, 255, 0.28); }
+        .cta-primary:hover {
+          background: #fff;
+          transform: translateY(-2px);
+          box-shadow:
+            0 1px 0 rgba(255,255,255,0.9) inset,
+            0 0 0 1px rgba(200,225,255,0.30),
+            0 12px 32px rgba(0,0,0,0.30),
+            0 4px 14px rgba(255,255,255,0.20);
+        }
+        .cta-primary:active { transform: translateY(0); transition-duration: 0.08s; }
+        .cta-primary .arrow {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: rgba(10,30,61,0.10);
+          transition: transform 0.18s cubic-bezier(0.2,0.8,0.2,1),
+                      background 0.18s ease;
+          flex-shrink: 0;
+        }
+        .cta-primary:hover .arrow {
+          transform: translateX(2px);
+          background: rgba(10,30,61,0.16);
+        }
+
         .cta-ghost {
-          color: rgba(139, 184, 232, 0.85);
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          color: rgba(195, 220, 248, 0.90);
           font-size: 14px;
-          font-weight: 300;
-          text-decoration: underline;
-          text-underline-offset: 4px;
+          font-weight: 400;
+          letter-spacing: -0.005em;
+          text-decoration: none;
+          padding: 14px 20px;
+          border-radius: 999px;
+          border: 1px solid rgba(139, 184, 232, 0.22);
+          background: rgba(74, 144, 217, 0.06);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          transition: color 0.18s ease,
+                      border-color 0.18s ease,
+                      background 0.18s ease,
+                      transform 0.18s cubic-bezier(0.2,0.8,0.2,1);
+          will-change: transform;
         }
+        .cta-ghost:hover {
+          color: #dceeff;
+          border-color: rgba(139, 184, 232, 0.42);
+          background: rgba(74, 144, 217, 0.12);
+          transform: translateY(-1px);
+        }
+        .cta-ghost:active { transform: translateY(0); }
 
         .trust { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 520px; }
         .trust-item {
@@ -563,12 +619,18 @@ export function Hero() {
           <div className="cta-row anim-up d4">
             <Link href="/login" className="cta-primary">
               Start your compliance audit
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+              <span className="arrow" aria-hidden>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
             </Link>
             <Link href="/dashboard?demo=1" className="cta-ghost">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
               View demo dashboard
             </Link>
           </div>
