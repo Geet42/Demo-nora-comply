@@ -4,6 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent white flash on load */
+html, body { background: #070e1c; }
+
 /* =====================================================================
    NORA COMPLY — Glacial Blue Design System
    Landing: deep navy → icy blue → white snow palette
