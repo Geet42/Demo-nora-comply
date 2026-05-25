@@ -71,11 +71,11 @@ function exportCSV(decisions: any[]) {
 
 function DecisionDrawer({ d, onClose }: { d: any; onClose: () => void }) {
   return (
-    <div className="theme-dark" style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }} onClick={onClose}>
+    <div className="theme-dark" style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }} onClick={onClose}>
       <div aria-hidden style={{ position: 'absolute', inset: 0, background: 'rgba(7,14,28,0.7)', backdropFilter: 'blur(4px)' }} />
       <div
         onClick={e => e.stopPropagation()}
-        style={{ position: 'relative', width: '100%', maxWidth: 640, maxHeight: '80vh', overflowY: 'auto', borderRadius: '18px 18px 0 0', padding: 28, background: 'var(--coal2)', border: '1px solid var(--ash)', borderBottom: 'none', boxShadow: '0 -20px 60px -10px rgba(0,0,0,0.6)' }}
+        style={{ position: 'relative', width: '100%', maxWidth: 640, maxHeight: '92vh', overflowY: 'auto', borderRadius: 18, padding: '28px 28px 36px 28px', background: 'var(--coal2)', border: '1px solid var(--ash)', boxShadow: '0 -20px 60px -10px rgba(0,0,0,0.6)' }}
       >
         <div className="flex items-start justify-between mb-5">
           <div>
