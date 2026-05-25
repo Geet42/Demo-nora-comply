@@ -12,7 +12,8 @@ export async function POST(req: NextRequest) {
     const systemName = body.systemName || "Customer Support Copilot";
     const vendor = body.vendor || "OpenAI · GPT-4o";
     const riskLevel = body.riskLevel || "Limited risk";
-    const owner = body.owner || "Geet Bhute";
+    const owner = body.owner || "Compliance team";
+    const obligations = body.obligations || [];
 
     const generatedAt = new Date().toISOString().slice(0, 19).replace("T", " ");
     const hash = createHash("sha256")
