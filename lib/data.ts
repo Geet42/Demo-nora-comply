@@ -116,7 +116,7 @@ export async function fetchHumanDecisions(systemId?: string) {
   const companyId = await getUserCompanyId()
   if (!companyId) return []
   const supabase = createClient()
-  let q = supabase.from('human_decisions').select('*').eq('company_id', companyId).order('decided_at', { ascending: false }).limit(20)
+  let q = supabase.from('human_decisions').select('*').eq('company_id', companyId).order('decided_at', { ascending: false }).limit(50)
   if (systemId) q = q.eq('system_id', systemId)
   const { data } = await q
   return data || []
@@ -211,4 +211,27 @@ function getDueUrgency(date: Date): 'Urgent' | 'Soon' | 'Upcoming' {
   if (days <= 14) return 'Urgent'
   if (days <= 45) return 'Soon'
   return 'Upcoming'
+}
+
+export async function fetchHumanDecisionStats() {
+  if (isDemoMode()) return { total: 0, overrides: 0 }
+  const companyId = await getUserCompanyId()
+  if (!companyId) return { total: 0, overrides: 0 }
+  const supabase = createClient()
+  const [{ count: total }, { count: overrides }] = await Promise.all([
+    supabase.from('human_decisions').select('*', { count: 'exact', head: true }).eq('company_id', companyId),
+    supabase.from('human_decisions').select('*', { count: 'exact', head: true }).eq('company_id', companyId).eq('did_override', true),
+  ])
+  return { total: total || 0, overrides: overrides || 0 }
+}
+
+export async function fetchHumanDecisionsPage(page = 0, pageSize = 50, systemId?: string) {
+  if (isDemoMode()) return []
+  const companyId = await getUserCompanyId()
+  if (!companyId) return []
+  const supabase = createClient()
+  let q = supabase.from('human_decisions').select('*').eq('company_id', companyId).order('decided_at', { ascending: false }).range(page * pageSize, (page + 1) * pageSize - 1)
+  if (systemId) q = q.eq('system_id', systemId)
+  const { data } = await q
+  return data || []
 }
