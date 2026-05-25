@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       .slice(0, 16);
 
     const buffer = await renderToBuffer(
-      EvidencePack({ systemName, vendor, riskLevel, owner, generatedAt, hash })
+      EvidencePack({ systemName, vendor, riskLevel, owner, generatedAt, obligations })
     );
 
     return new NextResponse(new Uint8Array(buffer), {
