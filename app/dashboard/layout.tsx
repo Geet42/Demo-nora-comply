@@ -7,7 +7,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <Sidebar pathname="/dashboard" />
       <div className="flex-1 flex flex-col min-w-0">
         <Topbar />
-        <main className="flex-1 px-8 lg:px-10 py-10 fade-in">{children}</main>
+        <main className="flex-1 px-4 sm:px-6 lg:px-10 py-6 lg:py-10 fade-in overflow-x-hidden">{children}</main>
       </div>
     </div>
   )

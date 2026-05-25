@@ -28,7 +28,7 @@ export function TopbarClient({ companyName }: { companyName: string }) {
 
   return (
     <div
-      className="sticky top-0 z-10 px-8 lg:px-10 flex items-center justify-between h-16"
+      className="sticky top-0 z-10 pl-14 lg:pl-8 pr-4 lg:pr-10 flex items-center justify-between h-16 gap-3"
       style={{
         background: 'rgba(7,14,28,0.88)',
         backdropFilter: 'blur(14px)',
@@ -36,16 +36,16 @@ export function TopbarClient({ companyName }: { companyName: string }) {
         borderBottom: '1px solid rgba(30,51,88,0.8)',
       }}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 min-w-0">
         <span
-          className="display-serif"
-          style={{ fontSize: '1.15rem', fontWeight: 500, color: '#dceeff' }}
+          className="display-serif truncate"
+          style={{ fontSize: '1.05rem', fontWeight: 500, color: '#dceeff' }}
         >
           {displayName}
         </span>
         {isDemo && (
           <span
-            className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono"
+            className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono flex-shrink-0"
             style={{
               background: 'rgba(74,144,217,0.12)',
               color: '#4a90d9',
@@ -57,7 +57,7 @@ export function TopbarClient({ companyName }: { companyName: string }) {
         )}
         {!isDemo && (
           <span
-            className="hidden md:inline-flex items-center gap-1.5 text-xs pl-3 ml-1 font-mono"
+            className="hidden md:inline-flex items-center gap-1.5 text-xs pl-3 ml-1 font-mono flex-shrink-0"
             style={{ borderLeft: '1px solid rgba(30,51,88,0.8)', color: '#2a4470' }}
           >
             <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#5c9e8a' }} />
@@ -65,10 +65,10 @@ export function TopbarClient({ companyName }: { companyName: string }) {
           </span>
         )}
       </div>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 flex-shrink-0">
         <Link
           href="/dashboard/reports"
-          className="btn-ghost !py-2 !px-4 text-[13px]"
+          className="hidden sm:inline-flex btn-ghost !py-2 !px-4 text-[13px]"
           style={{ color: '#9bbce0', borderColor: 'rgba(42,68,112,0.8)' }}
         >
           Export report

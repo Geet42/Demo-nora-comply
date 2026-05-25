@@ -2,11 +2,19 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://demo-nora-comply.vercel.app'
+function getAppUrl(req: NextRequest): string {
+  const fwdHost = req.headers.get('x-forwarded-host')
+  const fwdProto = req.headers.get('x-forwarded-proto') || 'https'
+  if (fwdHost) return `${fwdProto}://${fwdHost}`
+  const host = req.headers.get('host') || ''
+  if (host && !host.includes('localhost')) return `https://${host}`
+  return process.env.NEXT_PUBLIC_APP_URL || 'https://demo-nora-comply.vercel.app'
+}
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const code = searchParams.get('code')
+  const appUrl = getAppUrl(req)
 
   if (code) {
     const supabase = createClient()
@@ -44,9 +52,9 @@ export async function GET(req: NextRequest) {
           }
         } catch {}
       }
-      return NextResponse.redirect(`${APP_URL}/dashboard`)
+      return NextResponse.redirect(`${appUrl}/dashboard`)
     }
   }
 
-  return NextResponse.redirect(`${APP_URL}/login?error=oauth`)
+  return NextResponse.redirect(`${appUrl}/login?error=oauth`)
 }

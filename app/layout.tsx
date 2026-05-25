@@ -38,8 +38,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" style={{ background: '#070e1c' }}>
+      <head>
+        <style>{`html,body{background:#070e1c;margin:0;padding:0}`}</style>
+      </head>
+      <body style={{ background: '#070e1c' }}>
         {children}
         <CookieBanner />
       </body>

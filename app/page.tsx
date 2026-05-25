@@ -17,12 +17,12 @@ export default function LandingPage() {
       <Hero />
       <TrustStrip />
 
-      <section id="product" className="px-6 lg:px-10 py-32" style={{ background: '#f4f8fd' }}>
+      <section id="product" className="px-4 sm:px-6 lg:px-10 py-16 sm:py-24 lg:py-32" style={{ background: '#f4f8fd' }}>
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-14">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 lg:mb-14">
             <div className="max-w-2xl">
               <span className="eyebrow" style={{ color: '#5c85b8' }}>What it does</span>
-              <h2 className="display-serif text-ink mt-4 leading-[1.05]" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)', fontWeight: 400 }}>
+              <h2 className="display-serif text-ink mt-4 leading-[1.05]" style={{ fontSize: 'clamp(1.8rem, 4.5vw, 3.2rem)', fontWeight: 400 }}>
                 Eight surfaces.{' '}
                 <span className="italic font-light" style={{ color: '#2563b0' }}>One system of record.</span>
               </h2>
@@ -35,11 +35,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="compliance" className="px-6 lg:px-10 py-32" style={{ background: '#e8f2fc', borderTop: '1px solid #c8ddf2', borderBottom: '1px solid #c8ddf2' }}>
+      <section id="compliance" className="px-4 sm:px-6 lg:px-10 py-16 sm:py-24 lg:py-32" style={{ background: '#e8f2fc', borderTop: '1px solid #c8ddf2', borderBottom: '1px solid #c8ddf2' }}>
         <div className="max-w-7xl mx-auto">
-          <div className="mb-14 max-w-2xl">
+          <div className="mb-10 lg:mb-14 max-w-2xl">
             <span className="eyebrow" style={{ color: '#5c85b8' }}>The map</span>
-            <h2 className="display-serif text-ink mt-4 leading-[1.05]" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)', fontWeight: 400 }}>
+            <h2 className="display-serif text-ink mt-4 leading-[1.05]" style={{ fontSize: 'clamp(1.8rem, 4.5vw, 3.2rem)', fontWeight: 400 }}>
               Every article,{' '}
               <span className="italic font-light" style={{ color: '#2563b0' }}>accounted for.</span>
             </h2>

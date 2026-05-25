@@ -12,7 +12,15 @@ function configured() {
   return Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 }
 
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://demo-nora-comply.vercel.app'
+function getAppUrl(): string {
+  try {
+    const headersList = headers()
+    const host = headersList.get('x-forwarded-host') || headersList.get('host') || ''
+    const proto = headersList.get('x-forwarded-proto') || 'https'
+    if (host) return `${proto}://${host}`
+  } catch {}
+  return process.env.NEXT_PUBLIC_APP_URL || 'https://demo-nora-comply.vercel.app'
+}
 
 export async function signIn(_prev: AuthState, formData: FormData): Promise<AuthState> {
   const email = String(formData.get('email') || '').trim()
@@ -50,7 +58,7 @@ export async function signUp(_prev: AuthState, formData: FormData): Promise<Auth
     password,
     options: {
       data: { company_name: companyName },
-      emailRedirectTo: `${APP_URL}/dashboard`,
+      emailRedirectTo: `${getAppUrl()}/dashboard`,
     },
   })
 
@@ -84,7 +92,7 @@ export async function signInWithGoogle() {
   const supabase = createClient()
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: `${APP_URL}/auth/callback` },
+    options: { redirectTo: `${getAppUrl()}/auth/callback` },
   })
   if (data.url) redirect(data.url)
 }
@@ -169,7 +177,7 @@ async function sendWelcomeEmail(to: string, companyName: string) {
           </div>
         </div>
 
-        <a href="${APP_URL}/dashboard" style="display:inline-block;background:linear-gradient(135deg,#1a3a6b 0%,#2563b0 100%);color:#ffffff;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;">
+        <a href="${getAppUrl()}/dashboard" style="display:inline-block;background:linear-gradient(135deg,#1a3a6b 0%,#2563b0 100%);color:#ffffff;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;">
           Open your dashboard &rarr;
         </a>
       `),

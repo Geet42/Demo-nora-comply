@@ -493,6 +493,7 @@ export function Hero() {
           opacity: 0;
           transform: translateY(16px);
           animation: nora-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+          animation-fill-mode: both;
         }
         .anim-up.d1 { animation-delay: 0.05s; }
         .anim-up.d2 { animation-delay: 0.18s; }
@@ -501,11 +502,36 @@ export function Hero() {
         .anim-up.d5 { animation-delay: 0.6s; }
         @keyframes nora-in { to { opacity: 1; transform: translateY(0); } }
 
+        /* Fallback: if animations are disabled or fail, show content */
         @media (prefers-reduced-motion: reduce) {
-          .aurora, .flake, .bar > i, .tag .dot, .alert .dot, .anim-up, .mountain-photo {
+          .aurora, .flake, .bar > i, .tag .dot, .alert .dot, .mountain-photo {
+            animation: none !important;
+          }
+          .anim-up {
             animation: none !important;
             opacity: 1 !important;
             transform: none !important;
+          }
+        }
+
+        /* Mobile hero */
+        @media (max-width: 640px) {
+          .hero-inner {
+            padding: 90px 20px 80px !important;
+          }
+          h1.heading {
+            font-size: clamp(2rem, 8vw, 2.8rem) !important;
+          }
+          .cta-row {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+          .cta-primary {
+            width: 100%;
+            justify-content: center;
+          }
+          .trust {
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>
