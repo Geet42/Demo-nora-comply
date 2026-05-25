@@ -53,7 +53,7 @@ export default async function TeamPage() {
         </div>
       </div>
 
-      <TeamClient members={members} canInvite={canInvite} currentUserId={ctx?.userId || null} />
+      <TeamClient members={members} canInvite={canInvite} currentUserId={ctx?.userId || null} currentRole={ctx?.role || null} />
     </div>
   )
 }

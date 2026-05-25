@@ -59,8 +59,18 @@ export function RegisterSystemButton({ label = 'Register system' }: { label?: st
       <div aria-hidden style={{ position: 'absolute', inset: 0, background: 'rgba(7,14,28,0.88)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }} />
       <div
         onClick={e => e.stopPropagation()}
-        className="rounded-2xl"
-        style={{ position: 'relative', width: '100%', maxWidth: 560, maxHeight: 'calc(100vh - 48px)', overflowY: 'auto', borderRadius: 18, padding: 28, boxShadow: '0 24px 60px -20px rgba(0,0,0,0.6)' }}
+        style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: 560,
+          maxHeight: 'calc(100vh - 48px)',
+          overflowY: 'auto',
+          borderRadius: 18,
+          padding: 28,
+          boxShadow: '0 24px 60px -20px rgba(0,0,0,0.6)',
+          background: 'var(--coal2)',
+          border: '1px solid var(--ash)',
+        }}
       >
         <div className="flex items-start justify-between mb-5">
           <div>
@@ -83,7 +93,7 @@ export function RegisterSystemButton({ label = 'Register system' }: { label?: st
               name="risk"
               defaultValue="Limited"
               onChange={e => setSelectedRisk(e.target.value)}
-              className="w-full rounded-xl rounded-xl px-4 py-3 text-sm text-cream focus:outline-none focus:border-glacier-blue transition"
+              className="w-full bg-coal border border-ash rounded-xl px-4 py-3 text-sm text-cream focus:outline-none focus:border-glacier-blue transition"
             >
               <option value="Unacceptable">Unacceptable risk — prohibited</option>
               <option value="High">High risk — Annex III categories</option>
@@ -107,7 +117,7 @@ export function RegisterSystemButton({ label = 'Register system' }: { label?: st
               <label className="eyebrow !text-cream2/60 block mb-2">Annex III category</label>
               <select
                 name="annexCategory"
-                className="w-full rounded-xl rounded-xl px-4 py-3 text-sm text-cream focus:outline-none focus:border-glacier-blue transition"
+                className="w-full bg-coal border border-ash rounded-xl px-4 py-3 text-sm text-cream focus:outline-none focus:border-glacier-blue transition"
               >
                 <option value="">Select category...</option>
                 {ANNEX_III_CATEGORIES.map(cat => (
@@ -151,7 +161,7 @@ function Field({ label, name, placeholder, required }: { label: string; name: st
         name={name}
         placeholder={placeholder}
         required={required}
-        className="w-full rounded-xl rounded-xl px-4 py-3 text-sm text-cream placeholder:text-cream2/40 focus:outline-none focus:border-glacier-blue transition"
+        className="w-full bg-coal border border-ash rounded-xl px-4 py-3 text-sm text-cream placeholder:text-cream2/40 focus:outline-none focus:border-glacier-blue transition"
       />
     </div>
   )
