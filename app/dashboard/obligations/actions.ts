@@ -80,6 +80,9 @@ export async function uploadEvidence(
 
   if (insertErr) return { error: `Record failed: ${insertErr.message}` }
 
+  // Update obligation progress to 100% — evidence has been uploaded
+  await supabase.from('obligations').update({ pct: 100 }).eq('id', obligationId)
+
   await supabase.from('activities').insert({
     company_id: companyId,
     actor: user?.id,

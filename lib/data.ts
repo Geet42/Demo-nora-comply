@@ -235,3 +235,18 @@ export async function fetchHumanDecisionsPage(page = 0, pageSize = 50, systemId?
   const { data } = await q
   return data || []
 }
+
+export async function fetchEvidence(obligationId?: string) {
+  if (isDemoMode()) return []
+  const companyId = await getUserCompanyId()
+  if (!companyId) return []
+  const supabase = createClient()
+  let q = supabase
+    .from('evidence')
+    .select('id, file_name, file_type, file_size_bytes, content_hash, version, uploaded_at, review_status, obligation_id, obligations!inner(article, article_title, system_id, ai_systems!inner(name, company_id))')
+    .eq('obligations.ai_systems.company_id', companyId)
+    .order('uploaded_at', { ascending: false })
+  if (obligationId) q = q.eq('obligation_id', obligationId)
+  const { data } = await q
+  return data || []
+}

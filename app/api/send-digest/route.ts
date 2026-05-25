@@ -61,52 +61,103 @@ function digestHtml({
   daysToDeadline: number
   appUrl: string
 }) {
-  const scoreColor = overallScore >= 75 ? '#7F8B6F' : overallScore >= 50 ? '#B87352' : '#B5604E'
+  const scoreColor = overallScore >= 75 ? '#3d7a5e' : overallScore >= 50 ? '#b07a2a' : '#b5604e'
+  const urgency = daysToDeadline <= 30 ? 'URGENT' : daysToDeadline <= 90 ? 'ACTION REQUIRED' : 'UPCOMING'
+  const urgencyColor = daysToDeadline <= 30 ? '#b5604e' : daysToDeadline <= 90 ? '#c9914a' : '#2563b0'
 
   return `
-    <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto; padding: 40px; background: #FBF6EF; color: #221C16; border-radius: 20px; border: 1px solid #E6DDCE;">
-      
-      <!-- Mountain header SVG -->
-      <div style="background: linear-gradient(160deg, #0f2744 0%, #1a3d6b 60%, #2a5a8a 100%); border-radius: 12px; padding: 24px 24px 8px; margin-bottom: 24px; overflow: hidden; position: relative;">
-        <svg style="position: absolute; bottom: 0; left: 0; right: 0; opacity: 0.2;" viewBox="0 0 600 60" preserveAspectRatio="none">
-          <polygon points="0,60 80,20 160,40 240,10 320,35 400,5 480,25 600,15 600,60" fill="#5ba3d4"/>
-        </svg>
-        <div style="position: relative;">
-          <div style="font-size: 20px; font-weight: 500; color: #e8f4ff; font-family: Georgia, serif;">nora<span style="color: #c17f3e;">.</span>comply</div>
-          <div style="font-family: monospace; font-size: 11px; color: #a8cde8; text-transform: uppercase; letter-spacing: 1.4px; margin-top: 4px;">Weekly digest · ${companyName}</div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <body style="margin:0;padding:0;background:#0a1628;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;">
+
+    <div style="max-width:600px;margin:0 auto;padding:32px 16px;">
+
+      <!-- Card wrapper -->
+      <div style="background:#0d1a30;border:1px solid #1e3358;border-radius:20px;overflow:hidden;">
+
+        <!-- Header band -->
+        <div style="background:linear-gradient(135deg,#070e1c 0%,#0f2240 50%,#1a3a6b 100%);padding:32px 32px 24px;position:relative;overflow:hidden;">
+          <div style="position:absolute;bottom:0;left:0;right:0;opacity:0.15;">
+            <svg viewBox="0 0 600 80" preserveAspectRatio="none" style="display:block;width:100%;height:50px;">
+              <polygon points="0,80 100,30 200,55 300,15 400,45 500,10 600,35 600,80" fill="#4a90d9"/>
+            </svg>
+          </div>
+          <div style="position:relative;">
+            <div style="font-size:22px;font-weight:700;color:#dceeff;letter-spacing:-0.5px;">
+              nora<span style="color:#4a90d9;">.</span>comply
+            </div>
+            <div style="font-family:monospace;font-size:10px;color:#5c85b8;text-transform:uppercase;letter-spacing:2px;margin-top:4px;">
+              Weekly digest &middot; ${companyName}
+            </div>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div style="padding:28px 32px;">
+
+          <!-- Score headline -->
+          <div style="border-bottom:1px solid #1e3358;padding-bottom:20px;margin-bottom:24px;">
+            <div style="font-size:28px;font-weight:700;color:#dceeff;line-height:1.2;margin-bottom:6px;">
+              ${systemCount} AI system${systemCount !== 1 ? 's' : ''} &middot;
+              <span style="color:${scoreColor};">${overallScore}%</span> posture
+            </div>
+            <div style="font-family:monospace;font-size:11px;color:#5c85b8;">
+              ${daysToDeadline} days to Regulation (EU) 2024/1689 enforcement
+            </div>
+          </div>
+
+          <!-- Deadline alert -->
+          <div style="background:rgba(37,99,176,0.08);border:1px solid rgba(37,99,176,0.25);border-radius:12px;padding:14px 16px;margin-bottom:18px;">
+            <div style="font-size:10px;font-weight:700;color:${urgencyColor};text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;font-family:monospace;">
+              ${urgency} &middot; 2 August 2026 &middot; EU AI Act
+            </div>
+            <div style="font-size:13px;color:#9bbce0;line-height:1.5;">
+              ${daysToDeadline} days until Articles 9, 12, 13, 14 and 26 of Regulation (EU) 2024/1689 become
+              enforceable for high-risk AI deployers in the EU.
+            </div>
+          </div>
+
+          ${openObligations > 0 ? `
+          <!-- Open obligations -->
+          <div style="background:rgba(181,96,78,0.07);border:1px solid rgba(181,96,78,0.25);border-radius:12px;padding:14px 16px;margin-bottom:18px;">
+            <div style="font-size:10px;font-weight:700;color:#d45a5a;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;font-family:monospace;">
+              Action required
+            </div>
+            <div style="font-size:13px;color:#9bbce0;line-height:1.5;">
+              <strong style="color:#dceeff;">${openObligations} obligation${openObligations !== 1 ? 's' : ''}</strong>
+              ${openObligations !== 1 ? 'are' : 'is'} below 100% evidence coverage.
+              Art. 14 (Human oversight) is most commonly incomplete for employment AI.
+            </div>
+          </div>` : `
+          <!-- All complete -->
+          <div style="background:rgba(60,122,94,0.08);border:1px solid rgba(60,122,94,0.25);border-radius:12px;padding:14px 16px;margin-bottom:18px;">
+            <div style="font-size:10px;font-weight:700;color:#3d7a5e;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;font-family:monospace;">
+              All obligations covered
+            </div>
+            <div style="font-size:13px;color:#9bbce0;line-height:1.5;">
+              All obligations have evidence uploaded. Your compliance posture is up to date.
+            </div>
+          </div>`}
+
+          <!-- CTA -->
+          <a href="${appUrl}/dashboard"
+            style="display:inline-block;background:linear-gradient(135deg,#1a3a6b 0%,#2563b0 100%);color:#ffffff;padding:14px 28px;border-radius:12px;text-decoration:none;font-weight:600;font-size:14px;margin-bottom:28px;letter-spacing:0.2px;">
+            Review compliance dashboard &rarr;
+          </a>
+
+          <!-- Footer -->
+          <div style="font-family:monospace;font-size:10px;color:#2a4a72;border-top:1px solid #1e3358;padding-top:14px;line-height:1.7;">
+            Nora Comply &middot; Built in Ireland &middot; Regulation (EU) 2024/1689<br>
+            <a href="${appUrl}/cookies" style="color:#2a4a72;text-decoration:none;">Cookie policy</a> &middot;
+            <a href="${appUrl}/privacy" style="color:#2a4a72;text-decoration:none;">Privacy</a>
+          </div>
+
         </div>
       </div>
 
-      <div style="border-bottom: 1px solid #E6DDCE; padding-bottom: 18px; margin-bottom: 24px;">
-        <h2 style="font-size: 26px; margin: 0 0 8px; font-weight: 400; line-height: 1.2;">
-          ${systemCount} AI system${systemCount !== 1 ? 's' : ''} &middot; <span style="color: ${scoreColor};">${overallScore}%</span> posture.
-        </h2>
-        <p style="color: #8A7E70; font-size: 13px; margin: 0; font-family: monospace;">${daysToDeadline} days to Regulation (EU) 2024/1689 enforcement</p>
-      </div>
-
-      <!-- Deadline alert -->
-      <div style="background: rgba(181,96,78,0.08); border: 1px solid rgba(181,96,78,0.25); border-radius: 12px; padding: 14px 16px; margin-bottom: 20px;">
-        <div style="font-family: system-ui, sans-serif; font-size: 12px; color: #9A5A3D; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em;">2 August 2026 · EU AI Act</div>
-        <div style="font-size: 14px; color: #221C16; font-family: system-ui, sans-serif; line-height: 1.5;">
-          ${daysToDeadline} days until Articles 9, 12, 13, 14 and 26 of Regulation (EU) 2024/1689 become enforceable for high-risk AI deployers.
-        </div>
-      </div>
-
-      ${openObligations > 0 ? `
-      <div style="background: #F2EBE0; border: 1px solid rgba(184,115,82,0.30); border-radius: 12px; padding: 14px 16px; margin-bottom: 20px;">
-        <div style="font-family: system-ui, sans-serif; font-size: 12px; color: #9A5A3D; font-weight: 600; margin-bottom: 4px;">Action required</div>
-        <div style="font-size: 14px; color: #221C16; font-family: system-ui, sans-serif; line-height: 1.5;">
-          ${openObligations} obligation${openObligations !== 1 ? 's are' : ' is'} below 100% evidence coverage. Art. 14 (Human oversight) is most commonly incomplete for employment AI.
-        </div>
-      </div>` : ''}
-
-      <a href="${appUrl}/dashboard" style="display: inline-block; background: #221C16; color: #FBF6EF; padding: 14px 26px; border-radius: 999px; text-decoration: none; font-weight: 500; font-family: system-ui, sans-serif; font-size: 14px; margin-bottom: 32px;">
-        Review obligations &rarr;
-      </a>
-
-      <div style="margin-top: 24px; font-family: monospace; font-size: 11px; color: #8A7E70; border-top: 1px solid #E6DDCE; padding-top: 16px;">
-        Nora Comply &middot; Built in Ireland &middot; Regulation (EU) 2024/1689
-      </div>
     </div>
+    </body>
+    </html>
   `
 }

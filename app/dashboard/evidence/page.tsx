@@ -1,10 +1,13 @@
-import { fetchAllObligations } from '@/lib/data'
+import { fetchAllObligations, fetchEvidence } from '@/lib/data'
 import { EvidenceClient } from './EvidenceClient'
 
 export const dynamic = 'force-dynamic'
 
 export default async function EvidencePage() {
-  const obligations = await fetchAllObligations()
+  const [obligations, uploaded] = await Promise.all([
+    fetchAllObligations(),
+    fetchEvidence(),
+  ])
 
   return (
     <div className="space-y-8 fade-in">
@@ -34,7 +37,7 @@ export default async function EvidencePage() {
         </div>
       </div>
 
-      <EvidenceClient obligations={obligations as any[]} />
+      <EvidenceClient obligations={obligations as any[]} uploaded={uploaded as any[]} />
     </div>
   )
 }
